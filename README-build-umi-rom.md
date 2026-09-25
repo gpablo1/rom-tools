@@ -305,7 +305,44 @@ La configuración recomendada actualmente es:
     ROM_JOBS=96
     KERNEL_JOBS=32
 
-## 12. Dry-run
+## 12. Ayuda integrada
+
+El script dispone de ayuda rápida desde terminal:
+
+    /home/pablo/rom-tools/build-umi-rom.sh --help
+
+También puede utilizarse:
+
+    /home/pablo/rom-tools/build-umi-rom.sh -h
+
+Ambas opciones muestran exactamente la misma ayuda.
+
+La ayuda incluye:
+
+- Sintaxis completa.
+- ROMs disponibles.
+- Variantes de root.
+- Significado de `ROM_JOBS`.
+- Significado de `KERNEL_JOBS`.
+- Valores recomendados para ServerHive.
+- Ejemplos.
+- Uso de `--dry-run`.
+- Ruta de este README.
+
+La ejecución de `-h` o `--help` termina después de mostrar la ayuda.
+
+No:
+
+- entra en el menú de ROM;
+- entra en el menú de root;
+- carga `build/envsetup.sh`;
+- ejecuta `riseup`;
+- limpia outputs;
+- inicia ninguna compilación.
+
+---
+
+## 13. Dry-run
 
 Ejemplo:
 
@@ -334,7 +371,7 @@ Sirve para comprobar:
 Debe utilizarse antes de probar una nueva configuración o después de modificar
 el orquestador.
 
-## 13. Comandos rápidos
+## 14. Comandos rápidos
 
 RisingOS + Magisk-ready:
 
@@ -356,7 +393,7 @@ Dry-run SukiSU:
 
     /home/pablo/rom-tools/build-umi-rom.sh risingos sukisu 96 32 --dry-run
 
-## 14. Flujo de una build
+## 15. Flujo de una build
 
     seleccionar ROM
           |
@@ -388,7 +425,7 @@ Dry-run SukiSU:
           |
     resumen PASS/FAIL
 
-## 15. Limpieza selectiva
+## 16. Limpieza selectiva
 
 Al cambiar de variante no se elimina todo `out/`.
 
@@ -401,7 +438,7 @@ Se invalidan principalmente:
 
 Esto evita reutilizar un kernel o un `boot.img` perteneciente a otra variante.
 
-## 16. Logs
+## 17. Logs
 
 Las compilaciones largas utilizan `tee`, por lo que el progreso debe verse en
 tiempo real y conservarse simultáneamente en un archivo.
@@ -414,7 +451,7 @@ Ejemplo:
 
     /home/pablo/rising/_audits/build_variants/risingos_sukisu/
 
-## 17. Metadata
+## 18. Metadata
 
 Cada build registra, entre otros:
 
@@ -433,7 +470,7 @@ Cada build registra, entre otros:
     WITH_RESUKISU
     WITH_RESUKISU_SUSFS
 
-## 18. boot.img final
+## 19. boot.img final
 
 No debe asumirse que:
 
@@ -448,7 +485,7 @@ El packaging puede modificar el ramdisk. El archivo correcto se toma de:
 
 Para la variante Magisk-ready, ese es el boot que debe parchearse.
 
-## 19. Qué NO hace el script
+## 20. Qué NO hace el script
 
 El script no:
 
@@ -470,7 +507,7 @@ Su responsabilidad es:
     registrar
     preservar artefactos
 
-## 20. Si falla una build
+## 21. Si falla una build
 
 No volver a lanzar automáticamente otra build.
 
@@ -485,7 +522,7 @@ Mensajes finales como `make: Error` o `ninja: build stopped` suelen ser
 consecuencia de un error anterior. Debe localizarse el primer error real del
 log.
 
-## 21. Seguridad SSH
+## 22. Seguridad SSH
 
 El script está pensado para ejecutarse desde una sesión SSH de ServerHive.
 
@@ -494,7 +531,7 @@ la sesión interactiva.
 
 Las compilaciones largas deben mantener salida visible mediante `tee`.
 
-## 22. Estado actual
+## 23. Estado actual
 
     Magisk-ready             compila: sí   hardware Magisk: pendiente
     ReSukiSU Manual          compila: sí   hardware: PASS
@@ -510,7 +547,7 @@ Próximas extensiones previstas:
     Wild KSU
     Infinitix
 
-## 23. Chuleta
+## 24. Chuleta
 
 Forma recomendada:
 
