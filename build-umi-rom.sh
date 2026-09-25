@@ -11,17 +11,18 @@
 #   magisk     -> kernel limpio, sin KSU/ReSukiSU/SUSFS
 #   resukisu   -> ReSukiSU Manual Hook
 #   susfs      -> ReSukiSU + SUSFS Inline Hook
+#   sukisu     -> SukiSU Ultra + SUSFS Inline Hook
 #
 # Siempre compila la ROM COMPLETA.
 #
 # Uso:
 #   build-umi-rom.sh
-#   build-umi-rom.sh risingos susfs
-#   build-umi-rom.sh risingos resukisu
-#   build-umi-rom.sh risingos magisk
-#   build-umi-rom.sh risingos susfs 16
-#   build-umi-rom.sh risingos susfs --dry-run
-#   build-umi-rom.sh risingos susfs 16 --dry-run
+#   build-umi-rom.sh --help
+#   build-umi-rom.sh risingos sukisu 96 32
+#   build-umi-rom.sh risingos susfs 96 32
+#   build-umi-rom.sh risingos resukisu 96 32
+#   build-umi-rom.sh risingos magisk 96 32
+#   build-umi-rom.sh risingos sukisu 96 32 --dry-run
 #
 # Seguridad para ServerHive:
 #   - no usa exit
@@ -39,6 +40,88 @@ ROOT_MODE="${2:-}"
 ARG3="${3:-}"
 ARG4="${4:-}"
 ARG5="${5:-}"
+
+###############################################################################
+# HELP WRAPPER - rom-tools
+###############################################################################
+
+if [ "$ROM" = "--help" ] || [ "$ROM" = "-h" ]; then
+
+    cat <<'HELP_TEXT'
+Xiaomi Mi 10 (umi) - Multi-ROM Builder
+
+USO
+
+  build-umi-rom.sh
+  build-umi-rom.sh ROM ROOT [ROM_JOBS] [KERNEL_JOBS] [--dry-run]
+
+ROM
+
+  risingos
+      RisingOS. Perfil operativo.
+
+  infinitix
+      Reservado para futura implementación.
+      Actualmente no compila.
+
+ROOT
+
+  magisk
+      Kernel limpio, sin KSU/ReSukiSU/SUSFS.
+      Genera una ROM preparada para parchear después el boot final con Magisk.
+
+  resukisu
+      ReSukiSU Manual Hook.
+
+  susfs
+      ReSukiSU + SUSFS 2.3.0 Inline Hook.
+
+  sukisu
+      SukiSU Ultra + SUSFS 2.3.0 Inline Hook.
+      KPM permanece desactivado actualmente.
+
+PARALELISMO
+
+  ROM_JOBS
+      Jobs de la compilación Android/Soong/Ninja.
+      Valor predeterminado: nproc.
+
+  KERNEL_JOBS
+      Jobs internos de make para el kernel.
+      Valor predeterminado: 32.
+
+RECOMENDADO PARA SERVERHIVE
+
+  ROM_JOBS=96
+  KERNEL_JOBS=32
+
+  build-umi-rom.sh risingos ROOT 96 32
+
+EJEMPLOS
+
+  build-umi-rom.sh risingos magisk 96 32
+  build-umi-rom.sh risingos resukisu 96 32
+  build-umi-rom.sh risingos susfs 96 32
+  build-umi-rom.sh risingos sukisu 96 32
+
+DRY-RUN
+
+  build-umi-rom.sh risingos sukisu 96 32 --dry-run
+
+  Comprueba la configuración sin limpiar outputs ni iniciar una compilación.
+
+AYUDA
+
+  build-umi-rom.sh -h
+  build-umi-rom.sh --help
+
+DOCUMENTACIÓN
+
+  /home/pablo/rom-tools/README-build-umi-rom.md
+
+HELP_TEXT
+
+else
 
 VALID=1
 BUILD_OK=0
@@ -941,4 +1024,9 @@ elif [ "$BUILD_OK" -eq 1 ] && [ "$CONFIG_OK" -eq 1 ]; then
     true
 else
     false
+fi
+
+###############################################################################
+# FIN HELP WRAPPER
+###############################################################################
 fi

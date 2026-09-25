@@ -181,12 +181,47 @@ El README describe el uso cotidiano del orquestador.
 
 El CHANGELOG registra la evolución técnica de la herramienta.
 
+### Ayuda integrada
+
+Añadidas las opciones:
+
+    -h
+    --help
+
+Ambas muestran una ayuda rápida con:
+
+- sintaxis;
+- ROMs;
+- variantes root;
+- `ROM_JOBS`;
+- `KERNEL_JOBS`;
+- valores recomendados para ServerHive;
+- ejemplos;
+- `--dry-run`;
+- ruta del README.
+
+Validación realizada:
+
+    --help RC=0
+    -h RC=0
+    menú ROM no ejecutado
+    menú ROOT no ejecutado
+    entorno de build no preparado
+    compilación no iniciada
+    salida de -h y --help idéntica
+
+La implementación mantiene la política de seguridad del script:
+
+    sin exit
+    sin logout
+    sin exec
+    sin set -e
+
 ### Pendiente
 
 - Publicar o hacer reproducible el commit modificado de SukiSU.
 - Actualizar `.gitmodules` al origen reproducible.
 - Commit del selector SukiSU y `KERNEL_JOBS` en el device tree.
-- Añadir ayuda integrada `--help`.
 - Build RisingOS completa con SukiSU.
 - Validación física SukiSU en Mi 10.
 - SukiSU + KPM.
