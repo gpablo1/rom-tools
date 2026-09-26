@@ -1,0 +1,21 @@
+{
+	"response": [
+		{
+			"maintainer": "",
+			"oem": "",
+			"device": "",
+			"filename": "RisingOS-9-260923-1937-GAPPS-COMMUNITY-umi-ota.zip",
+			"download": "https://sourceforge.net/projects/risingos-revived/files/9.x/GAPPS/umi/RisingOS-9-260923-1937-GAPPS-COMMUNITY-umi-ota.zip/download",
+			"timestamp": 1790192117,
+			"md5": "3b4217e772c8217f5fb46ffe38b8897a",
+			"sha256": "f5f8b5f43eb5e2252599dca31322a8f4fa6f10ca2f686ce3a9c5bf3eba5b547d",
+			"size": 4334032263,
+			"version": "9-elefthería",
+			"buildtype": "STABLE",
+			"forum": "",
+			"recovery": "",
+			"paypal": "",
+			"telegram": ""
+		}
+	]
+}

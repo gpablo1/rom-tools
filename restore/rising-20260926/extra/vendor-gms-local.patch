@@ -1,0 +1,36 @@
+diff --git a/product/packages/privileged_apps/SettingsIntelligenceGooglePrebuilt/Android.mk b/product/packages/privileged_apps/SettingsIntelligenceGooglePrebuilt/Android.mk
+index 8b41c1f..9f0946c 100644
+--- a/product/packages/privileged_apps/SettingsIntelligenceGooglePrebuilt/Android.mk
++++ b/product/packages/privileged_apps/SettingsIntelligenceGooglePrebuilt/Android.mk
+@@ -22,7 +22,8 @@ include $(CLEAR_VARS)
+ LOCAL_MODULE := SettingsIntelligenceGooglePrebuilt
+ LOCAL_MODULE_TAGS := optional
+ LOCAL_SRC_FILES := SettingsIntelligenceGooglePrebuilt.apk
+-LOCAL_CERTIFICATE := PRESIGNED
++LOCAL_UPDATABLE := false
++LOCAL_CERTIFICATE := platform
+ LOCAL_MODULE_CLASS := APPS
+ LOCAL_PRODUCT_MODULE := true
+ LOCAL_PRIVILEGED_MODULE := true
+diff --git a/system_ext/packages/privileged_apps/AvatarPickerGoogle/Android.mk b/system_ext/packages/privileged_apps/AvatarPickerGoogle/Android.mk
+index 0f1d672..43314bf 100644
+--- a/system_ext/packages/privileged_apps/AvatarPickerGoogle/Android.mk
++++ b/system_ext/packages/privileged_apps/AvatarPickerGoogle/Android.mk
+@@ -28,5 +28,4 @@ LOCAL_PRIVILEGED_MODULE := true
+ LOCAL_USES_LIBRARIES := android.test.base
+ LOCAL_OPTIONAL_USES_LIBRARIES := androidx.window.extensions androidx.window.sidecar
+ LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
+-LOCAL_OVERRIDES_PACKAGES := AvatarPicker
+ include $(BUILD_PREBUILT)
+diff --git a/system_ext/packages/privileged_apps/NexusLauncherRelease/Android.mk b/system_ext/packages/privileged_apps/NexusLauncherRelease/Android.mk
+index d478586..ddd508c 100644
+--- a/system_ext/packages/privileged_apps/NexusLauncherRelease/Android.mk
++++ b/system_ext/packages/privileged_apps/NexusLauncherRelease/Android.mk
+@@ -25,7 +25,6 @@ LOCAL_SRC_FILES := NexusLauncherRelease.apk
+ LOCAL_CERTIFICATE := PRESIGNED
+ LOCAL_MODULE_CLASS := APPS
+ LOCAL_SYSTEM_EXT_MODULE := true
+-LOCAL_OVERRIDES_PACKAGES := Launcher3 Launcher3QuickStep Trebuchet QuickSearchBox
+ LOCAL_PRIVILEGED_MODULE := true
+ LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
+ LOCAL_REQUIRED_MODULES := privapp_whitelist_com.android.launcher3

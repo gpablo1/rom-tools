@@ -1,0 +1,5 @@
+build/soong HEAD:
+2c122fed4563f642a2a08ebe7d725b67b1fc9dd1
+
+vendor/gms HEAD:
+c19be30173aee21084f9a07d1c2315daa4cd8861
