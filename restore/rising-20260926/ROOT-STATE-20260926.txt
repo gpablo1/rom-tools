@@ -1,0 +1,37 @@
+Xiaomi Mi 10 (umi) - Modern Root checkpoint
+Date: 2026-09-26
+
+Normal/ReSukiSU kernel:
+repo: gpablo1/android_kernel_xiaomi_sm8250_los
+branch: lineage-24.0
+commit: 522f9953c10e67c3da5d036c8ae21fa9bd2b2202
+
+ReSukiSU pinned submodule:
+repo: ReSukiSU/ReSukiSU
+commit: 3d1185d878a856ea6435799b436b3d3ec510da76
+
+SukiSU experimental kernel:
+repo: gpablo1/android_kernel_xiaomi_sm8250_los
+branch: sukisu-ultra-builtin-test
+commit: 1f0b7e28b4dadf2f3747dc6046ee05100ca2636f
+
+SukiSU fork:
+repo: gpablo1/SukiSU-Ultra
+branch: umi-4.19-builtin
+commit: 05ee7d0a908d486f22098d975b6fece728538725
+
+Device tree:
+repo: gpablo1/android_device_xiaomi_umi
+branch: lineage-24.0
+commit: 20a0926f4eb9400dde46c0e5cb0ad6b5b2cd6fa2
+
+Root modes:
+magisk   = clean kernel / CONFIG_KSU disabled
+resukisu = ReSukiSU Manual Hook
+susfs    = ReSukiSU + SUSFS 2.3.0 Inline Hook
+sukisu   = SukiSU Ultra + SUSFS 2.3.0 Inline Hook
+
+SukiSU status:
+Integrated Android kernel build validated
+KPM disabled
+NOT hardware validated yet

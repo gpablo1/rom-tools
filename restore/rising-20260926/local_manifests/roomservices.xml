@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <project path="device/xiaomi/sm8250-common"
+           name="gpablo1/android_device_xiaomi_sm8250-common"
+           remote="github"
+           revision="lineage-24.0" />
+
+  <project path="device/xiaomi/umi"
+           name="gpablo1/android_device_xiaomi_umi"
+           remote="github"
+           revision="lineage-24.0" />
+
+  <project path="vendor/xiaomi/sm8250-common"
+           name="gpablo1/android_vendor_xiaomi_sm8250-common"
+           remote="github"
+           revision="lineage-24.0" />
+
+  <project path="vendor/xiaomi/umi"
+           name="gpablo1/proprietary_vendor_xiaomi_umi"
+           remote="github"
+           revision="lineage-24.0" />
+
+  <project path="kernel/xiaomi/sm8250"
+           name="gpablo1/android_kernel_xiaomi_sm8250_los"
+           remote="github"
+           revision="lineage-24.0" />
+
+  <project path="hardware/xiaomi"
+           name="gpablo1/android_hardware_xiaomi"
+           remote="github"
+           revision="lineage-24.0" />
+
+  <project path="packages/apps/ViPER4AndroidFX"
+           name="gpablo1/packages_apps_ViPER4AndroidFX_umi"
+           remote="github"
+           revision="seventeen-umi" />
+<project path="vendor/xiaomi/miuiapps"
+           name="gpablo1/vendor_xiaomi_miuiapps"
+           remote="github"
+           revision="main" />
+
+  <project path="vendor/gcgop"
+           name="surya-aosp/vendor_gcgop"
+           remote="github"
+           revision="qpr2" />
+
+</manifest>

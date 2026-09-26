@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <remote
+        name="gpablo1-github"
+        fetch="https://github.com/gpablo1/" />
+
+    <project
+        name="packages_apps_XiaomiParts"
+        path="packages/apps/XiaomiParts"
+        remote="gpablo1-github"
+        revision="seventeen-umi" />
+</manifest>
