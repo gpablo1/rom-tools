@@ -76,7 +76,7 @@ En ServerHive `nproc` devuelve actualmente 96.
 
 Source tree:
 
-    /home/pablo/rising
+    /home/pablo/risingos
 
 Preparación:
 
@@ -445,11 +445,11 @@ tiempo real y conservarse simultáneamente en un archivo.
 
 Ruta base:
 
-    /home/pablo/rising/_audits/build_variants/
+    /home/pablo/risingos/_audits/build_variants/
 
 Ejemplo:
 
-    /home/pablo/rising/_audits/build_variants/risingos_sukisu/
+    /home/pablo/risingos/_audits/build_variants/risingos_sukisu/
 
 ## 18. Metadata
 

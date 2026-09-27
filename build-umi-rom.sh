@@ -165,7 +165,7 @@ fi
 # PERFILES ROM
 ###############################################################################
 
-RISING_TOP="/home/pablo/rising"
+RISING_TOP="/home/pablo/risingos"
 INFINITIX_TOP="/home/pablo/infinitix"
 
 echo "============================================================"
