@@ -23,7 +23,6 @@ Variantes de root disponibles:
     magisk    kernel limpio / Magisk-ready
     resukisu  ReSukiSU Manual Hook
     susfs     ReSukiSU + SUSFS 2.3.0 Inline Hook
-    sukisu    SukiSU Ultra + SUSFS 2.3.0 Inline Hook
 
 ## 2. Sintaxis recomendada
 
@@ -31,12 +30,9 @@ Variantes de root disponibles:
 
 Ejemplo recomendado para ServerHive:
 
-    /home/pablo/rom-tools/build-umi-rom.sh risingos sukisu 96 32
-
 Interpretación:
 
     ROM          RisingOS
-    ROOT         SukiSU Ultra + SUSFS
     ROM_JOBS     96
     KERNEL_JOBS  32
 
@@ -63,7 +59,6 @@ Root:
     1) Magisk-ready
     2) ReSukiSU
     3) ReSukiSU + SUSFS
-    4) SukiSU Ultra + SUSFS
 
 Valores predeterminados actuales:
 
@@ -103,7 +98,6 @@ Esta variante genera una ROM con kernel limpio:
 
     KernelSU  OFF
     ReSukiSU  OFF
-    SukiSU    OFF
     SUSFS     OFF
 
 Kernel:
@@ -116,7 +110,6 @@ Fragment:
 
 Variables:
 
-    WITH_SUKISU=<unset>
     WITH_RESUKISU=<unset>
     WITH_RESUKISU_SUSFS=<unset>
 
@@ -194,54 +187,6 @@ Estado:
     Compilación     PASS
     Hardware Mi 10  PASS
 
-## 8. Variante sukisu
-
-Comando:
-
-    /home/pablo/rom-tools/build-umi-rom.sh risingos sukisu 96 32
-
-Configuración actual:
-
-    SukiSU Ultra
-    SUSFS 2.3.0
-    Inline Hook
-    KPM OFF
-
-Kernel:
-
-    kernel/xiaomi/sm8250_sukisu
-
-Fragment:
-
-    vendor/xiaomi/umi-sukisu-susfs.config
-
-Variable:
-
-    WITH_SUKISU=true
-
-Configuración esperada:
-
-    CONFIG_KSU=y
-    CONFIG_KSU_FEATURE_ADBROOT=y
-    CONFIG_KSU_SUSFS=y
-    # CONFIG_KPM is not set
-
-Identificación ya comprobada:
-
-    SukiSU Ultra v4.2.0
-    kernel 4.19
-    Non-GKI
-    SUSFS_INLINE_HOOK
-    SUSFS 2.3.0
-
-Estado actual:
-
-    kernelconfig          PASS
-    Image                 PASS
-    auditoría binaria     PASS
-    ROM completa          PENDIENTE
-    hardware Mi 10        PENDIENTE
-
 ## 9. Alias aceptados
 
 Nombres recomendados:
@@ -249,7 +194,6 @@ Nombres recomendados:
     magisk
     resukisu
     susfs
-    sukisu
 
 Alias adicionales:
 
@@ -265,13 +209,9 @@ Alias adicionales:
       resukisu-susfs
       resukisu_susfs
 
-    sukisu:
-      sukisu-susfs
-      sukisu_susfs
-
 Para evitar errores conviene usar siempre los cuatro nombres cortos.
 
-## 10. ROM_JOBS
+## 9. ROM_JOBS
 
 `ROM_JOBS` controla la compilación Android/Soong/Ninja.
 
@@ -283,7 +223,7 @@ produce:
 
     rise b -j96
 
-## 11. KERNEL_JOBS
+## 9. KERNEL_JOBS
 
 `KERNEL_JOBS` controla específicamente el `make` interno del kernel.
 
@@ -305,7 +245,7 @@ La configuración recomendada actualmente es:
     ROM_JOBS=96
     KERNEL_JOBS=32
 
-## 12. Ayuda integrada
+## 9. Ayuda integrada
 
 El script dispone de ayuda rápida desde terminal:
 
@@ -342,11 +282,9 @@ No:
 
 ---
 
-## 13. Dry-run
+## 9. Dry-run
 
 Ejemplo:
-
-    /home/pablo/rom-tools/build-umi-rom.sh risingos sukisu 96 32 --dry-run
 
 El dry-run NO:
 
@@ -371,7 +309,7 @@ Sirve para comprobar:
 Debe utilizarse antes de probar una nueva configuración o después de modificar
 el orquestador.
 
-## 14. Comandos rápidos
+## 9. Comandos rápidos
 
 RisingOS + Magisk-ready:
 
@@ -385,15 +323,9 @@ RisingOS + ReSukiSU + SUSFS:
 
     /home/pablo/rom-tools/build-umi-rom.sh risingos susfs 96 32
 
-RisingOS + SukiSU + SUSFS:
 
-    /home/pablo/rom-tools/build-umi-rom.sh risingos sukisu 96 32
 
-Dry-run SukiSU:
-
-    /home/pablo/rom-tools/build-umi-rom.sh risingos sukisu 96 32 --dry-run
-
-## 15. Flujo de una build
+## 9. Flujo de una build
 
     seleccionar ROM
           |
@@ -425,7 +357,7 @@ Dry-run SukiSU:
           |
     resumen PASS/FAIL
 
-## 16. Limpieza selectiva
+## 9. Limpieza selectiva
 
 Al cambiar de variante no se elimina todo `out/`.
 
@@ -438,7 +370,7 @@ Se invalidan principalmente:
 
 Esto evita reutilizar un kernel o un `boot.img` perteneciente a otra variante.
 
-## 17. Logs
+## 9. Logs
 
 Las compilaciones largas utilizan `tee`, por lo que el progreso debe verse en
 tiempo real y conservarse simultáneamente en un archivo.
@@ -449,9 +381,7 @@ Ruta base:
 
 Ejemplo:
 
-    /home/pablo/risingos/_audits/build_variants/risingos_sukisu/
-
-## 18. Metadata
+## 9. Metadata
 
 Cada build registra, entre otros:
 
@@ -466,11 +396,10 @@ Cada build registra, entre otros:
     ROM_TOP
     KERNEL_HEAD
     DEVICE_HEAD
-    WITH_SUKISU
     WITH_RESUKISU
     WITH_RESUKISU_SUSFS
 
-## 19. boot.img final
+## 9. boot.img final
 
 No debe asumirse que:
 
@@ -485,7 +414,7 @@ El packaging puede modificar el ramdisk. El archivo correcto se toma de:
 
 Para la variante Magisk-ready, ese es el boot que debe parchearse.
 
-## 20. Qué NO hace el script
+## 9. Qué NO hace el script
 
 El script no:
 
@@ -507,7 +436,7 @@ Su responsabilidad es:
     registrar
     preservar artefactos
 
-## 21. Si falla una build
+## 9. Si falla una build
 
 No volver a lanzar automáticamente otra build.
 
@@ -522,7 +451,7 @@ Mensajes finales como `make: Error` o `ninja: build stopped` suelen ser
 consecuencia de un error anterior. Debe localizarse el primer error real del
 log.
 
-## 22. Seguridad SSH
+## 9. Seguridad SSH
 
 El script está pensado para ejecutarse desde una sesión SSH de ServerHive.
 
@@ -531,23 +460,19 @@ la sesión interactiva.
 
 Las compilaciones largas deben mantener salida visible mediante `tee`.
 
-## 23. Estado actual
+## 9. Estado actual
 
     Magisk-ready             compila: sí   hardware Magisk: pendiente
     ReSukiSU Manual          compila: sí   hardware: PASS
     ReSukiSU + SUSFS 2.3.0   compila: sí   hardware: PASS
-    SukiSU + SUSFS 2.3.0     compila: sí   hardware: pendiente
-    SukiSU + SUSFS + KPM     pendiente
     Infinitix                pendiente
 
 Próximas extensiones previstas:
-
-    SukiSU + KPM
     APatch / KernelPatch
     Wild KSU
     Infinitix
 
-## 24. Chuleta
+## 9. Chuleta
 
 Forma recomendada:
 
@@ -558,7 +483,6 @@ Sustituir `ROOT` por uno de:
     magisk
     resukisu
     susfs
-    sukisu
 
 Antes de una configuración nueva:
 

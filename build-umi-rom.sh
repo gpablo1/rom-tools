@@ -11,18 +11,15 @@
 #   magisk     -> kernel limpio, sin KSU/ReSukiSU/SUSFS
 #   resukisu   -> ReSukiSU Manual Hook
 #   susfs      -> ReSukiSU + SUSFS Inline Hook
-#   sukisu     -> SukiSU Ultra + SUSFS Inline Hook
 #
 # Siempre compila la ROM COMPLETA.
 #
 # Uso:
 #   build-umi-rom.sh
 #   build-umi-rom.sh --help
-#   build-umi-rom.sh risingos sukisu 96 32
 #   build-umi-rom.sh risingos susfs 96 32
 #   build-umi-rom.sh risingos resukisu 96 32
 #   build-umi-rom.sh risingos magisk 96 32
-#   build-umi-rom.sh risingos sukisu 96 32 --dry-run
 #
 # Seguridad para ServerHive:
 #   - no usa exit
@@ -76,10 +73,6 @@ ROOT
   susfs
       ReSukiSU + SUSFS 2.3.0 Inline Hook.
 
-  sukisu
-      SukiSU Ultra + SUSFS 2.3.0 Inline Hook.
-      KPM permanece desactivado actualmente.
-
 PARALELISMO
 
   ROM_JOBS
@@ -102,11 +95,9 @@ EJEMPLOS
   build-umi-rom.sh risingos magisk 96 32
   build-umi-rom.sh risingos resukisu 96 32
   build-umi-rom.sh risingos susfs 96 32
-  build-umi-rom.sh risingos sukisu 96 32
 
 DRY-RUN
 
-  build-umi-rom.sh risingos sukisu 96 32 --dry-run
 
   Comprueba la configuración sin limpiar outputs ni iniciar una compilación.
 
@@ -222,10 +213,8 @@ if [ "$VALID" -eq 1 ] && [ -z "$ROOT_MODE" ]; then
     echo "  3) ReSukiSU + SUSFS"
     echo "     SUSFS Inline Hook"
     echo
-    echo "  4) SukiSU Ultra + SUSFS"
-    echo "     SukiSU builtin + SUSFS Inline Hook"
     echo
-    printf "Opción [1-4]: "
+    printf "Opción [1-3]: "
 
     read -r ROOT_OPTION
 
@@ -238,9 +227,6 @@ if [ "$VALID" -eq 1 ] && [ -z "$ROOT_MODE" ]; then
             ;;
         3)
             ROOT_MODE="susfs"
-            ;;
-        4)
-            ROOT_MODE="sukisu"
             ;;
         *)
             echo "[FAIL] Opción root no válida"
@@ -316,13 +302,6 @@ if [ "$VALID" -eq 1 ]; then
             ROOT_FRAGMENT="vendor/xiaomi/umi-resukisu-susfs.config"
             ;;
 
-        sukisu|sukisu-susfs|sukisu_susfs)
-
-            ROOT_MODE="sukisu"
-            ROOT_LABEL="SukiSU ULTRA + SUSFS 2.3.0 INLINE HOOK"
-            ROOT_FRAGMENT="vendor/xiaomi/umi-sukisu-susfs.config"
-            ;;
-
         *)
 
             echo "[FAIL] Variante root desconocida: $ROOT_MODE"
@@ -340,11 +319,7 @@ if [ "$VALID" -eq 1 ]; then
     OUT="$ROM_TOP/out/target/product/$DEVICE"
     DEVICE_TREE="$ROM_TOP/device/xiaomi/umi"
 
-    if [ "$ROOT_MODE" = "sukisu" ]; then
-        KERNEL="$ROM_TOP/kernel/xiaomi/sm8250_sukisu"
-    else
-        KERNEL="$ROM_TOP/kernel/xiaomi/sm8250"
-    fi
+    KERNEL="$ROM_TOP/kernel/xiaomi/sm8250"
 
     FRAGMENT_PATH="$KERNEL/arch/arm64/configs/$ROOT_FRAGMENT"
 
@@ -494,25 +469,16 @@ if [ "$VALID" -eq 1 ] && [ "$DRY_RUN" -eq 1 ]; then
 
     case "$ROOT_MODE" in
         magisk)
-            echo "WITH_SUKISU=<unset>"
             echo "WITH_RESUKISU=<unset>"
             echo "WITH_RESUKISU_SUSFS=<unset>"
             ;;
         resukisu)
-            echo "WITH_SUKISU=<unset>"
             echo "WITH_RESUKISU=true"
             echo "WITH_RESUKISU_SUSFS=<unset>"
             ;;
         susfs)
-            echo "WITH_SUKISU=<unset>"
             echo "WITH_RESUKISU=<unset>"
             echo "WITH_RESUKISU_SUSFS=true"
-            ;;
-        sukisu)
-            echo "WITH_SUKISU=true"
-            echo "WITH_RESUKISU=<unset>"
-            echo "WITH_RESUKISU_SUSFS=<unset>"
-            echo "TARGET_KERNEL_SOURCE=kernel/xiaomi/sm8250_sukisu"
             ;;
     esac
 
@@ -571,8 +537,6 @@ fi
 ###############################################################################
 
 if [ "$VALID" -eq 1 ] && [ "$DO_BUILD" -eq 1 ]; then
-
-    unset WITH_SUKISU
     unset WITH_RESUKISU
     unset WITH_RESUKISU_SUSFS
 
@@ -581,37 +545,24 @@ if [ "$VALID" -eq 1 ] && [ "$DO_BUILD" -eq 1 ]; then
     case "$ROOT_MODE" in
 
         magisk)
-
-            unset WITH_SUKISU
             unset WITH_RESUKISU
             unset WITH_RESUKISU_SUSFS
             ;;
 
         resukisu)
-
-            unset WITH_SUKISU
             export WITH_RESUKISU=true
             unset WITH_RESUKISU_SUSFS
             ;;
 
         susfs)
-
-            unset WITH_SUKISU
             unset WITH_RESUKISU
             export WITH_RESUKISU_SUSFS=true
             ;;
 
-        sukisu)
-
-            export WITH_SUKISU=true
-            unset WITH_RESUKISU
-            unset WITH_RESUKISU_SUSFS
-            ;;
     esac
 
     echo
     echo "=== ROOT ENVIRONMENT ==="
-    echo "WITH_SUKISU=${WITH_SUKISU:-<unset>}"
     echo "WITH_RESUKISU=${WITH_RESUKISU:-<unset>}"
     echo "WITH_RESUKISU_SUSFS=${WITH_RESUKISU_SUSFS:-<unset>}"
     echo "KERNEL_JOBS=${KERNEL_JOBS}"
@@ -671,7 +622,6 @@ if [ "$VALID" -eq 1 ] && [ "$DO_BUILD" -eq 1 ]; then
         echo "ROM_TOP=$ROM_TOP"
         echo "KERNEL_HEAD=$(git -C "$KERNEL" rev-parse HEAD 2>/dev/null)"
         echo "DEVICE_HEAD=$(git -C "$DEVICE_TREE" rev-parse HEAD 2>/dev/null)"
-        echo "WITH_SUKISU=${WITH_SUKISU:-}"
         echo "WITH_RESUKISU=${WITH_RESUKISU:-}"
         echo "WITH_RESUKISU_SUSFS=${WITH_RESUKISU_SUSFS:-}"
     } > "$META"
@@ -841,39 +791,6 @@ if [ "$BUILD_OK" -eq 1 ]; then
                 fi
                 ;;
 
-            sukisu)
-
-                if grep -q '^CONFIG_KSU=y$' "$CONFIG"; then
-                    echo "[PASS] CONFIG_KSU=y"
-                else
-                    echo "[FAIL] CONFIG_KSU"
-                    CONFIG_OK=0
-                fi
-
-                if grep -q '^CONFIG_KSU_SUSFS=y$' "$CONFIG"; then
-                    echo "[PASS] SukiSU SUSFS activo"
-                else
-                    echo "[FAIL] SukiSU SUSFS no activo"
-                    CONFIG_OK=0
-                fi
-
-                if grep -q '^# CONFIG_KPM is not set$' "$CONFIG"; then
-                    echo "[PASS] KPM desactivado"
-                else
-                    echo "[FAIL] Estado KPM inesperado"
-                    CONFIG_OK=0
-                fi
-
-                SUSFS_COUNT="$(grep -c '^CONFIG_KSU_SUSFS.*=y$' "$CONFIG" || true)"
-
-                echo "CONFIG_KSU_SUSFS*=y: $SUSFS_COUNT"
-
-                if [ "$SUSFS_COUNT" -eq 10 ]; then
-                    echo "[PASS] SUSFS parent + 9 features"
-                else
-                    echo "[WARN] Se esperaban 10 opciones SUSFS activas"
-                fi
-                ;;
         esac
     fi
 

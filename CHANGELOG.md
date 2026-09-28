@@ -35,8 +35,6 @@ Añadidas:
     magisk
     resukisu
     susfs
-    sukisu
-
 #### magisk
 
 Kernel sin KSU/SUSFS.
@@ -63,70 +61,31 @@ Configuración:
 
 Validada en hardware.
 
-#### sukisu
+#### SukiSU Ultra (experimento retirado)
 
-Configuración experimental:
+Se evaluó SukiSU Ultra + SUSFS 2.3.0 sobre el kernel 4.19.325 de umi.
 
-    SukiSU Ultra builtin
-    SUSFS 2.3.0
-    Inline Hook
-    KPM OFF
+Resultado final en hardware:
 
-Kernel independiente:
+    KernelSU/SukiSU ejecutándose: PASS
+    SUSFS ejecutándose: PASS
+    packages.list detectado: PASS
+    Manager reconocido/coronado: FAIL
+    boot completed/prune: FAIL
+    ioctl 0xc0004bc8: unsupported
+    feature_id 4: invalid
 
-    kernel/xiaomi/sm8250_sukisu
+Conclusión:
 
-Submódulo SukiSU:
+SukiSU Ultra compila y arranca sobre umi/4.19, pero el camino
+Manager/UAPI/features de este backport no es funcional como solución
+de root completa.
 
-    branch local: umi-4.19-builtin
-    commit: 05ee7d0a
-    kernel: guard selinux_hide hooks on legacy kernels
+El experimento se retiró el 2026-09-28.
 
-Kernel padre experimental:
+La variante recomendada y validada continúa siendo:
 
-    branch: sukisu-ultra-builtin-test
-    commit: b5148f728f8b
-    sm8250: add experimental SukiSU Ultra SUSFS support
-
-La primera compilación directa del kernel terminó correctamente.
-
-Image validado:
-
-    SHA256:
-    5fcb9702ef468809bf4ef9f09fcd22b892a6155c6628cdcfaede6cebb2f10182
-
-Auditoría binaria:
-
-    PASS: 33
-    WARN: 0
-    FAIL: 0
-
-Identificación comprobada:
-
-    SukiSU-Ultra version: 40939 [v4.2.0-b20dee70@HEAD]
-    KERNEL_VERSION: 4.19
-    KERNEL_TYPE: Non-GKI
-    SukiSU-Ultra: using SUSFS_INLINE_HOOK
-    SUSFS_VERSION: v2.3.0
-
-Validación hardware de SukiSU todavía pendiente.
-
-### Compatibilidad SukiSU con kernel 4.19
-
-La rama `builtin` de SukiSU llamaba handlers `selinux_hide` que solo se incluyen en kernels >= 5.10.
-
-Se añadieron guards:
-
-    LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0)
-
-alrededor de:
-
-    ksu_selinux_hide_handle_post_fs_data()
-    ksu_selinux_hide_handle_second_stage()
-
-Resultado:
-
-    kernel 4.19.325 compilado correctamente
+    ReSukiSU + SUSFS 2.3.0 Inline Hook
 
 ### Paralelismo separado
 
@@ -151,9 +110,6 @@ Configuración recomendada para ServerHive:
     KERNEL_JOBS=32
 
 Validado mediante:
-
-    TARGET_KERNEL_SOURCE:
-    kernel/xiaomi/sm8250_sukisu
 
     TARGET_KERNEL_ADDITIONAL_FLAGS:
     ... -j32 TARGET_BOARD_PLATFORM=kona
@@ -219,12 +175,6 @@ La implementación mantiene la política de seguridad del script:
 
 ### Pendiente
 
-- Publicar o hacer reproducible el commit modificado de SukiSU.
-- Actualizar `.gitmodules` al origen reproducible.
-- Commit del selector SukiSU y `KERNEL_JOBS` en el device tree.
-- Build RisingOS completa con SukiSU.
-- Validación física SukiSU en Mi 10.
-- SukiSU + KPM.
 - APatch / KernelPatch.
 - Wild KSU.
 - Perfil Infinitix.
